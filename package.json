@@ -1,6 +1,6 @@
 {
   "name": "@somq14/use-form",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
