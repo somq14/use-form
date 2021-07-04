@@ -3,9 +3,10 @@
     /* Basic Options */
     "incremental": true,
     "target": "es5",
-    "lib": ["dom", "es5", "ES2017.Object", "ES2019.Array"],
-    "noEmit": true,
-    "importHelpers": true,
+    "lib": ["dom", "esnext"],
+    "outDir": "dist/types",
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
 
     /* Strict Type-Checking Options */
@@ -19,6 +20,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["src/**/*.spec.ts"]
 }
