@@ -1,6 +1,4 @@
-import { FormModel } from "./model";
-import { FieldRule } from "./rule";
-import { FieldType } from "./type";
+import { FieldRule, FieldType, FormModel } from "./external-types";
 
 export type InternalOptionalFieldConfig<T> = {
   when: (value: string) => boolean;

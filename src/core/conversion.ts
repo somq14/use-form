@@ -1,9 +1,7 @@
-import {
-  InternalFieldConfig,
-  InternalFormConfig,
-} from "../types/internal-config";
-import { FormModel } from "../types";
 import { mapProperties } from "../utils";
+
+import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
+import { FormModel } from "./external-types";
 
 export const convertField = <F extends FormModel, P extends keyof F>(
   fieldValue: string,

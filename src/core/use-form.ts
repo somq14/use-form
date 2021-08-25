@@ -1,12 +1,7 @@
 import { useCallback, useState } from "react";
 
-import {
-  convertField,
-  convertForm,
-  convertFormConfig,
-  validateField,
-  validateForm,
-} from "./core";
+import { mapProperties } from "../utils";
+
 import {
   FieldError,
   FieldHandle,
@@ -15,8 +10,10 @@ import {
   FormHandle,
   FormModel,
   FormValue,
-} from "./types";
-import { mapProperties } from "./utils";
+} from "./external-types";
+import { validateField, validateForm } from "./validation";
+import { convertField, convertForm } from "./conversion";
+import { convertFormConfig } from "./configuration";
 
 export const useForm = <F extends FormModel>(
   config: FormConfig<F>

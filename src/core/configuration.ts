@@ -1,16 +1,17 @@
+import { mapProperties, exhaustiveSwitchCase } from "../utils";
+
+import {
+  InternalFieldConfig,
+  InternalFormConfig,
+  InternalOptionalFieldConfig,
+} from "./internal-types";
 import {
   FieldConfig,
   FieldType,
   FormConfig,
   FormModel,
   OptionalFieldConfig,
-} from "../types";
-import {
-  InternalFieldConfig,
-  InternalFormConfig,
-  InternalOptionalFieldConfig,
-} from "../types/internal-config";
-import { mapProperties, exhaustiveSwitchCase } from "../utils";
+} from "./external-types";
 
 export const convertOptionalWhenConfig = (
   when?: string | RegExp | ((value: string) => boolean)

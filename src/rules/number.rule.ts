@@ -1,4 +1,4 @@
-import { FieldRule } from "../types";
+import { FieldRule } from "../core";
 
 export const Max =
   (max: number, message: string): FieldRule<never> =>
