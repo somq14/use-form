@@ -20,7 +20,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docs": "yarn typedoc --out docs --tsconfig ./tsconfig.typedoc.json src/core/index.ts src/rules/index.ts src/types/index.ts"
   },
   "dependencies": {
     "core-js": "3"
@@ -47,6 +48,7 @@
     "react": "^17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
+    "typedoc": "^0.21.6",
     "typescript": "^4.3.4"
   },
   "files": [
