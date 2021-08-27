@@ -1,9 +1,9 @@
 import { toEntries } from "../utils";
 
-import { FieldError, FormModel, FormValue } from "./external-types";
+import { FieldError, FormValue } from "./external-types";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 
-export const validateField = <F extends FormModel, P extends keyof F>(
+export const validateField = <F, P extends keyof F>(
   fieldValue: string,
   fieldName: string,
   formValue: FormValue<F>,
@@ -18,7 +18,7 @@ export const validateField = <F extends FormModel, P extends keyof F>(
   return errors;
 };
 
-export const validateForm = <F extends FormModel>(
+export const validateForm = <F>(
   formValue: FormValue<F>,
   formConfig: InternalFormConfig<F>
 ): FieldError[] => {

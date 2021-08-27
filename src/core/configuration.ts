@@ -9,7 +9,6 @@ import {
   FieldConfig,
   FieldType,
   FormConfig,
-  FormModel,
   OptionalFieldConfig,
 } from "./external-types";
 
@@ -64,7 +63,7 @@ const convertTypeConfig = <T>(type?: FieldType<T>): FieldType<T> => {
   return type;
 };
 
-export const convertFieldConfig = <F extends FormModel, P extends keyof F>(
+export const convertFieldConfig = <F, P extends keyof F>(
   config: FieldConfig<F, P>
 ): InternalFieldConfig<F, P> => {
   const type = convertTypeConfig(config.type);
@@ -74,7 +73,7 @@ export const convertFieldConfig = <F extends FormModel, P extends keyof F>(
   return { type, optional, rules, initial };
 };
 
-export const convertFormConfig = <F extends FormModel>(
+export const convertFormConfig = <F>(
   config: FormConfig<F>
 ): InternalFormConfig<F> => {
   return mapProperties<FormConfig<F>, InternalFormConfig<F>>(

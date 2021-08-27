@@ -8,14 +8,13 @@ import {
   FormConfig,
   FormError,
   FormHandle,
-  FormModel,
   FormValue,
 } from "./external-types";
 import { validateField, validateForm } from "./validation";
 import { convertField, convertForm } from "./conversion";
 import { convertFormConfig } from "./configuration";
 
-export const useForm = <F extends FormModel>(
+export const useForm = <F>(
   config: FormConfig<F>
 ): {
   form: FormHandle<F>;
