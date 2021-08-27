@@ -20,6 +20,10 @@ export type FieldError = {
   message: string;
 };
 
+export type FormError<F> = {
+  [_ in keyof F]-?: FieldError[];
+};
+
 export type FormValue<F> = {
   [_ in keyof F]-?: string;
 };
@@ -29,10 +33,6 @@ export type FieldRule<F> = (
   fieldName: string,
   formValue: FormValue<F>
 ) => FieldError[];
-
-export type FormError<F> = {
-  [_ in keyof F]-?: FieldError[];
-};
 
 export type FieldType<T> = (value: string) => T;
 

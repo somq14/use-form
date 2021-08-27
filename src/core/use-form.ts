@@ -19,7 +19,7 @@ export const useForm = <F>(
 ): {
   form: FormHandle<F>;
   validated: () => F;
-  validateAll: () => FieldError[];
+  validateAll: () => boolean;
 } => {
   const internalConfig = convertFormConfig(config);
 
@@ -97,7 +97,13 @@ export const useForm = <F>(
   };
 
   const validateAll = () => {
-    return validateForm(formValue, internalConfig);
+    let hasError = false;
+    mapProperties(formHandle, (value) => {
+      if (value.validate().length > 0) {
+        hasError = true;
+      }
+    });
+    return hasError;
   };
 
   return { form: formHandle, validated, validateAll };

@@ -1,6 +1,6 @@
-import { toEntries } from "../utils";
+import { mapProperties } from "../utils";
 
-import { FieldError, FormValue } from "./external-types";
+import { FieldError, FormValue, FormError } from "./external-types";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 
 export const validateField = <F, P extends keyof F>(
@@ -21,8 +21,8 @@ export const validateField = <F, P extends keyof F>(
 export const validateForm = <F>(
   formValue: FormValue<F>,
   formConfig: InternalFormConfig<F>
-): FieldError[] => {
-  return toEntries(formValue).flatMap(([key, value]) => {
+): FormError<F> => {
+  return mapProperties(formValue, (value, key) => {
     const fieldConfig = formConfig[key];
     return validateField(value, key.toString(), formValue, fieldConfig);
   });
