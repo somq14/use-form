@@ -10,7 +10,7 @@ import {
   FormHandle,
   FormValue,
 } from "./external-types";
-import { validateField, validateForm } from "./validation";
+import { validateField } from "./validation";
 import { convertField, convertForm } from "./conversion";
 import { convertFormConfig } from "./configuration";
 
