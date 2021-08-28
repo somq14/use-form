@@ -16,7 +16,7 @@
     "start": "tsc --watch",
     "lint": "run-s lint:*",
     "lint:prettier": "prettier --check **/*.{js,jsx,json,ts,tsx,md}",
-    "lint:eslint": "eslint --max-warnings 1 **/*.{js,jsx,ts,tsx}",
+    "lint:eslint": "eslint --max-warnings 0 **/*.{js,jsx,ts,tsx}",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
