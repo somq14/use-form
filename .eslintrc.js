@@ -15,5 +15,4 @@ module.exports = {
   rules: {
     "import/order": ["warn", { "newlines-between": "always" }],
   },
-  ignorePatterns: ["dist", "docs"],
 };

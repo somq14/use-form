@@ -80,7 +80,6 @@
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="core.html#FormConfig" class="tsd-kind-icon">Form<wbr>Config</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="core.html#FormError" class="tsd-kind-icon">Form<wbr>Error</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="core.html#FormHandle" class="tsd-kind-icon">Form<wbr>Handle</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="core.html#FormModel" class="tsd-kind-icon">Form<wbr>Model</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="core.html#FormValue" class="tsd-kind-icon">Form<wbr>Value</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter"><a href="core.html#OptionalFieldConfig" class="tsd-kind-icon">Optional<wbr>Field<wbr>Config</a></li>
 							</ul>
@@ -102,13 +101,13 @@
 					<div class="tsd-signature tsd-kind-icon">Field<wbr>Config&lt;F, P&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>initial<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>optional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><a href="core.html#OptionalFieldConfig" class="tsd-signature-type" data-tsd-kind="Type alias">OptionalFieldConfig</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>rules<span class="tsd-signature-symbol">?: </span><a href="core.html#FieldRule" class="tsd-signature-type" data-tsd-kind="Type alias">FieldRule</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>type<span class="tsd-signature-symbol">?: </span><a href="core.html#FieldType" class="tsd-signature-type" data-tsd-kind="Type alias">FieldType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L6">core/external-types.ts:6</a></li>
+							<li>Defined in core/external-types.ts:44</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 						<li>
 							<h4>P<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">F</span></h4>
@@ -138,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">Field<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>ruleName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L34">core/external-types.ts:34</a></li>
+							<li>Defined in core/external-types.ts:16</li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -165,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">Field<wbr>Handle&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>errors<span class="tsd-signature-symbol">: </span><a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>onBlur<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.FocusEventHandler</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLInputElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLTextAreaElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>onChange<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.ChangeEventHandler</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLInputElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLTextAreaElement</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>setErrors<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>setValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>validate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">; </span>validated<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L17">core/external-types.ts:17</a></li>
+							<li>Defined in core/external-types.ts:1</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -198,7 +197,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L21">core/external-types.ts:21</a></li>
+												<li>Defined in core/external-types.ts:5</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -220,7 +219,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L19">core/external-types.ts:19</a></li>
+												<li>Defined in core/external-types.ts:3</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-parameters-title">Parameters</h4>
@@ -242,7 +241,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L24">core/external-types.ts:24</a></li>
+												<li>Defined in core/external-types.ts:8</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-returns-title">Returns <a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -258,7 +257,7 @@
 									<li class="tsd-description">
 										<aside class="tsd-sources">
 											<ul>
-												<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L25">core/external-types.ts:25</a></li>
+												<li>Defined in core/external-types.ts:9</li>
 											</ul>
 										</aside>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span></h4>
@@ -274,13 +273,13 @@
 					<div class="tsd-signature tsd-kind-icon">Field<wbr>Rule&lt;F&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>fieldValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, formValue<span class="tsd-signature-symbol">: </span><a href="core.html#FormValue" class="tsd-signature-type" data-tsd-kind="Type alias">FormValue</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L45">core/external-types.ts:45</a></li>
+							<li>Defined in core/external-types.ts:31</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 					</ul>
 					<div class="tsd-type-declaration">
@@ -317,7 +316,7 @@
 					<div class="tsd-signature tsd-kind-icon">Field<wbr>Type&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">T</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L55">core/external-types.ts:55</a></li>
+							<li>Defined in core/external-types.ts:37</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -354,13 +353,13 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Config&lt;F&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">: </span><a href="core.html#FieldConfig" class="tsd-signature-type" data-tsd-kind="Type alias">FieldConfig</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L13">core/external-types.ts:13</a></li>
+							<li>Defined in core/external-types.ts:51</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 					</ul>
 				</section>
@@ -370,13 +369,13 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Error&lt;F&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">_</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">: </span><a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L51">core/external-types.ts:51</a></li>
+							<li>Defined in core/external-types.ts:23</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 					</ul>
 				</section>
@@ -386,33 +385,15 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Handle&lt;F&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">: </span><a href="core.html#FieldHandle" class="tsd-signature-type" data-tsd-kind="Type alias">FieldHandle</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L28">core/external-types.ts:28</a></li>
+							<li>Defined in core/external-types.ts:12</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
-					<a name="FormModel" class="tsd-anchor"></a>
-					<h3>Form<wbr>Model</h3>
-					<div class="tsd-signature tsd-kind-icon">Form<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L32">core/external-types.ts:32</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>fieldName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">unknown</span></h5>
-							</li>
-						</ul>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 					<a name="FormValue" class="tsd-anchor"></a>
@@ -420,13 +401,13 @@
 					<div class="tsd-signature tsd-kind-icon">Form<wbr>Value&lt;F&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span><span class="tsd-signature-symbol">[ </span><span class="tsd-signature-type">_</span><span class="tsd-signature-symbol"> in </span><span class="tsd-signature-symbol">keyof </span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L41">core/external-types.ts:41</a></li>
+							<li>Defined in core/external-types.ts:27</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
 					<ul class="tsd-type-parameters">
 						<li>
-							<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+							<h4>F</h4>
 						</li>
 					</ul>
 				</section>
@@ -436,7 +417,7 @@
 					<div class="tsd-signature tsd-kind-icon">Optional<wbr>Field<wbr>Config&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>then<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">; </span>when<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/external-types.ts#L1">core/external-types.ts:1</a></li>
+							<li>Defined in core/external-types.ts:39</li>
 						</ul>
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -470,13 +451,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/use-form.ts#L18">core/use-form.ts:18</a></li>
+									<li>Defined in core/use-form.ts:17</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>F<span class="tsd-signature-symbol">: </span><a href="core.html#FormModel" class="tsd-signature-type" data-tsd-kind="Type alias">FormModel</a></h4>
+									<h4>F</h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -493,16 +474,16 @@
 								<li class="tsd-parameter">
 									<h5>validate<wbr>All<span class="tsd-signature-symbol">: </span>function</h5>
 									<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-type-literal">
-										<li class="tsd-signature tsd-kind-icon">validate<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span></li>
+										<li class="tsd-signature tsd-kind-icon">validate<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 									</ul>
 									<ul class="tsd-descriptions">
 										<li class="tsd-description">
 											<aside class="tsd-sources">
 												<ul>
-													<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/use-form.ts#L23">core/use-form.ts:23</a></li>
+													<li>Defined in core/use-form.ts:22</li>
 												</ul>
 											</aside>
-											<h4 class="tsd-returns-title">Returns <a href="core.html#FieldError" class="tsd-signature-type" data-tsd-kind="Type alias">FieldError</a><span class="tsd-signature-symbol">[]</span></h4>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 										</li>
 									</ul>
 								</li>
@@ -515,7 +496,7 @@
 										<li class="tsd-description">
 											<aside class="tsd-sources">
 												<ul>
-													<li>Defined in <a href="https://github.com/somq14/use-form/blob/a76abde/src/core/use-form.ts#L22">core/use-form.ts:22</a></li>
+													<li>Defined in core/use-form.ts:21</li>
 												</ul>
 											</aside>
 											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">F</span></h4>
@@ -570,9 +551,6 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="core.html#FormHandle" class="tsd-kind-icon">Form<wbr>Handle</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="core.html#FormModel" class="tsd-kind-icon">Form<wbr>Model</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="core.html#FormValue" class="tsd-kind-icon">Form<wbr>Value</a>
