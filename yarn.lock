@@ -1781,10 +1781,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@somq14/use-form@npm:@somq14/use-form@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.8.tgz#6e90e4ae93f11345e95ed9f13f06469069cc8578"
-  integrity sha512-olj3Diu8a7WuqJDsnNRMZXUimf/sPWJvly15/XwGbT88gkh3ziBtTG+HV7wOVq+IzkEOteorHRtGxU2UevIu4g==
+"@somq14/use-form@npm:@somq14/use-form@0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.10.tgz#2f5d1d551e8c7d47bb6128e8d77c42fe9dc084b6"
+  integrity sha512-OfnvsZKciWvWNB4M4ENV5voI6Tt7WY8nnIKNwSKOYv2/GbwWChadSPnI5x9LfmapOATfLW8tznFKdutVDE4UJQ==
   dependencies:
     core-js "3"
 
