@@ -7,7 +7,7 @@
   "author": "somq14 <som.q14@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "run-s lint build test docs",
+    "prepublishOnly": "run-s lint build test docs docs:git",
     "prebuild": "rimraf dist",
     "build": "run-s build:*",
     "build:types": "tsc -p tsconfig.build.json",
@@ -24,7 +24,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "docs": "yarn typedoc --out ../docs src/core/index.ts src/rules/index.ts src/types/index.ts"
+    "docs": "yarn typedoc --out ../docs src/core/index.ts src/rules/index.ts src/types/index.ts",
+    "docs:git": "git add ../docs"
   },
   "dependencies": {
     "core-js": "3"
