@@ -1,17 +1,10 @@
 import { FieldRule } from "../core";
 
-export const Max =
-  (max: number, message: string): FieldRule<unknown> =>
-  (value, name) => {
-    if (Number(value) <= max) {
-      return [];
-    }
-    return [
-      {
-        name,
-        value,
-        message,
-        ruleName: "Max",
-      },
-    ];
-  };
+import { defineRule } from "./rule";
+
+export const IsNumber = (message?: string): FieldRule<unknown> =>
+  defineRule(
+    "IsNumber",
+    (value) => /^[+-]?([1-9][0-9]*|0)(\.[0-9]+)?$/.test(value),
+    (name) => message ?? `${name} must be number`
+  );
