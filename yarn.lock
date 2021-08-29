@@ -1781,10 +1781,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@somq14/use-form@npm:@somq14/use-form@0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.7.tgz#bbb1eb25b70ad4f287bd035ee77f5708257dd2d5"
-  integrity sha512-qeMxU56BvvU9oet+wLAP/pgGjcMo7mOVK+Pd5Fm/yTvqZT/DmWVVQRt8PDqibJheTL/qnapQTXP4X+OlZkz88A==
+"@somq14/use-form@npm:@somq14/use-form@0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.8.tgz#6e90e4ae93f11345e95ed9f13f06469069cc8578"
+  integrity sha512-olj3Diu8a7WuqJDsnNRMZXUimf/sPWJvly15/XwGbT88gkh3ziBtTG+HV7wOVq+IzkEOteorHRtGxU2UevIu4g==
   dependencies:
     core-js "3"
 
@@ -6092,7 +6092,7 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-husky@^7.0.0:
+husky@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/husky/-/husky-7.0.2.tgz#21900da0f30199acca43a46c043c4ad84ae88dff"
   integrity sha512-8yKEWNX4z2YsofXAMT7KvA1g8p+GxtB1ffV8XtpAEGuXNAbCV5wdNKH+qTpw8SM9fh4aMPDR+yQuKfgnreyZlg==
@@ -11701,7 +11701,7 @@ typedoc@^0.21.6:
     shiki "^0.9.3"
     typedoc-default-themes "^0.12.10"
 
-typescript@^4.1.2, typescript@^4.3.4, typescript@^4.4.2:
+typescript@^4.1.2, typescript@^4.3.4:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
   integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
