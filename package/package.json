@@ -24,7 +24,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "docs": "yarn typedoc --out docs src/core/index.ts src/rules/index.ts src/types/index.ts"
+    "docs": "yarn typedoc --out ../docs src/core/index.ts src/rules/index.ts src/types/index.ts"
   },
   "dependencies": {
     "core-js": "3"
