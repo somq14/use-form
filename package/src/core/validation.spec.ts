@@ -1,8 +1,14 @@
-import { StringType } from "../types";
-import { MaxLength, MinLength, Pattern } from "../rules";
+import { StringType, NumberType } from "../types";
+import {
+  MaxLength,
+  MinLength,
+  Pattern,
+  LessOrEqualThan,
+  GreaterOrEqualThan,
+} from "../rules";
 import { FieldError } from "../core";
 
-import { validateField } from "./validation";
+import { validateField, validateForm } from "./validation";
 
 describe("validateField", () => {
   type Form = { field?: string };
@@ -54,5 +60,59 @@ describe("validateField", () => {
       config
     );
     expect(errors).toEqual<FieldError[]>([]);
+  });
+});
+
+describe("validateForm", () => {
+  type Form = { fieldA?: string; fieldB: number };
+  const config = {
+    fieldA: {
+      initial: "",
+      optional: {
+        when: (value: string) => value === "",
+        then: undefined,
+      },
+      rules: [MinLength(4), MaxLength(8), Pattern(/^[a-zA-Z]*$/)],
+      type: StringType,
+    },
+    fieldB: {
+      initial: "",
+      optional: {
+        when: () => false,
+        then: NaN,
+      },
+      rules: [GreaterOrEqualThan(4), LessOrEqualThan(8)],
+      type: NumberType,
+    },
+  };
+
+  it("no error", () => {
+    const errors = validateForm<Form>({ fieldA: "", fieldB: "6" }, config);
+    expect(errors).toEqual({
+      fieldA: [],
+      fieldB: [],
+    });
+  });
+
+  it("error", () => {
+    const errors = validateForm<Form>({ fieldA: "abc", fieldB: "0" }, config);
+    expect(errors).toEqual({
+      fieldA: [
+        {
+          message: "fieldA must be longer than or equal to 4 characters",
+          name: "fieldA",
+          ruleName: "MinLength",
+          value: "abc",
+        },
+      ],
+      fieldB: [
+        {
+          message: "fieldB must be greater or equal than 4",
+          name: "fieldB",
+          ruleName: "GreaterOrEqualThan",
+          value: "0",
+        },
+      ],
+    });
   });
 });

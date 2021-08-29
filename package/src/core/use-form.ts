@@ -10,7 +10,7 @@ import {
   FormHandle,
   FormValue,
 } from "./external-types";
-import { validateField } from "./validation";
+import { validateField, validateForm } from "./validation";
 import { convertField, convertForm } from "./conversion";
 import { convertFormConfig } from "./configuration";
 
@@ -97,13 +97,10 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   };
 
   const validateAll = () => {
-    let hasError = false;
-    mapProperties(formHandle, (value) => {
-      if (value.validate().length > 0) {
-        hasError = true;
-      }
-    });
-    return !hasError;
+    const formError = validateForm(formValue, internalConfig);
+    return Object.values<FieldError[]>(formError).every(
+      (errors) => errors.length === 0
+    );
   };
 
   return { form: formHandle, validated, validateAll };
