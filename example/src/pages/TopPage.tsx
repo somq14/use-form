@@ -7,7 +7,10 @@ export const TopPage: React.FC = (props) => {
       <h1>index</h1>
       <ul>
         <li>
-          <Link to="/basic">basic</Link>
+          <Link to="/basic">Basic Form</Link>
+        </li>
+        <li>
+          <Link to="/validation">Validated Form</Link>
         </li>
       </ul>
     </div>
