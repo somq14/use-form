@@ -10,7 +10,7 @@
     "prepublishOnly": "run-s lint build test docs",
     "prebuild": "rimraf dist",
     "build": "run-s build:*",
-    "build:types": "tsc",
+    "build:types": "tsc -p tsconfig.build.json",
     "build:cjs": "babel --quiet --config-file ./babel-cjs.config.js -x '.ts' --ignore '**/*.spec.ts' -d dist/cjs -s --no-comments --minified src",
     "build:esm": "babel --quiet --config-file ./babel-esm.config.js -x '.ts' --ignore '**/*.spec.ts' -d dist/esm -s --no-comments --minified src",
     "start": "run-p start:*",
@@ -20,10 +20,11 @@
     "lint": "run-s lint:*",
     "lint:prettier": "prettier --check **/*.{js,jsx,json,ts,tsx,md}",
     "lint:eslint": "eslint --max-warnings 0 **/*.{js,jsx,ts,tsx}",
+    "lint:tsc": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "docs": "yarn typedoc --out docs --tsconfig ./tsconfig.typedoc.json src/core/index.ts src/rules/index.ts src/types/index.ts"
+    "docs": "yarn typedoc --out docs src/core/index.ts src/rules/index.ts src/types/index.ts"
   },
   "dependencies": {
     "core-js": "3"
@@ -51,7 +52,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
     "typedoc": "^0.21.6",
-    "typescript": "^4.3.4"
+    "typescript": "4.3.x"
   },
   "files": [
     "dist"
