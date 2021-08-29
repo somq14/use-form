@@ -103,7 +103,7 @@ export const useForm = <F>(
         hasError = true;
       }
     });
-    return hasError;
+    return !hasError;
   };
 
   return { form: formHandle, validated, validateAll };
