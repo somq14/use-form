@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { mapProperties } from "../utils";
 
@@ -111,7 +111,7 @@ export const useForm = <F>(
 
 export const bindField = <T>(
   fieldHandle: FieldHandle<T>
-): InputHTMLAttributes<HTMLInputElement> => {
+): Pick<FieldHandle<T>, "value" | "onChange" | "onBlur"> => {
   const { value, onChange, onBlur } = fieldHandle;
   return {
     value,

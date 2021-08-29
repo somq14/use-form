@@ -1,6 +1,44 @@
 import { FieldError } from "../../dist/types";
 
-import { MaxLength, MinLength, OneOf, Pattern } from "./string.rule";
+import { Length, MaxLength, MinLength, OneOf, Pattern } from "./string.rule";
+
+import { EmailAddress } from ".";
+
+describe("Length", () => {
+  it("validation", () => {
+    const rule = Length(2, 3);
+    expect(rule("x", "prop", {})).toEqual<FieldError[]>([
+      {
+        ruleName: "Length",
+        name: "prop",
+        value: "x",
+        message: "the length of prop must be between 2 and 3",
+      },
+    ]);
+    expect(rule("xx", "prop", {})).toHaveLength(0);
+    expect(rule("xxx", "prop", {})).toHaveLength(0);
+    expect(rule("xxxx", "prop", {})).toEqual<FieldError[]>([
+      {
+        ruleName: "Length",
+        name: "prop",
+        value: "xxxx",
+        message: "the length of prop must be between 2 and 3",
+      },
+    ]);
+  });
+
+  it("message", () => {
+    const rule = Length(2, 3, "msg");
+    expect(rule("x", "prop", {})).toEqual<FieldError[]>([
+      {
+        ruleName: "Length",
+        name: "prop",
+        value: "x",
+        message: "msg",
+      },
+    ]);
+  });
+});
 
 describe("MinLength", () => {
   it("validation", () => {
@@ -77,6 +115,34 @@ describe("Pattern", () => {
         ruleName: "Pattern",
         name: "prop",
         value: "abcABC",
+        message: "msg",
+      },
+    ]);
+  });
+});
+
+describe("EmailAddress", () => {
+  it("validation", () => {
+    const rule = EmailAddress();
+    expect(rule("a@b", "prop", {})).toHaveLength(0);
+    expect(rule("hoge@example.com", "prop", {})).toHaveLength(0);
+    expect(rule("ab", "prop", {})).toEqual<FieldError[]>([
+      {
+        ruleName: "EmailAddress",
+        name: "prop",
+        value: "ab",
+        message: "prop must be valid email address",
+      },
+    ]);
+  });
+
+  it("message", () => {
+    const rule = EmailAddress("msg");
+    expect(rule("ab", "prop", {})).toEqual<FieldError[]>([
+      {
+        ruleName: "EmailAddress",
+        name: "prop",
+        value: "ab",
         message: "msg",
       },
     ]);
