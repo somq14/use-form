@@ -1,26 +1,24 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BasicForm } from "./pages/BasicForm";
+import { TopPage } from "./pages/TopPage";
 
-function App() {
+export const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <TopPage></TopPage>
+          </Route>
+          <Route exact path="/basic">
+            <BasicForm></BasicForm>
+          </Route>
+          <Route path="*">
+            <Redirect to="/"></Redirect>
+          </Route>
+        </Switch>
+      </main>
+    </BrowserRouter>
   );
-}
-
-export default App;
+};
