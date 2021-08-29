@@ -1781,8 +1781,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@somq14/use-form@link:package":
+"@somq14/use-form@npm:@somq14/use-form@0.0.7":
   version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.7.tgz#bbb1eb25b70ad4f287bd035ee77f5708257dd2d5"
+  integrity sha512-qeMxU56BvvU9oet+wLAP/pgGjcMo7mOVK+Pd5Fm/yTvqZT/DmWVVQRt8PDqibJheTL/qnapQTXP4X+OlZkz88A==
   dependencies:
     core-js "3"
 
