@@ -14,13 +14,13 @@ import { validateField } from "./validation";
 import { convertField, convertForm } from "./conversion";
 import { convertFormConfig } from "./configuration";
 
-export const useForm = <F>(
-  config: FormConfig<F>
-): {
+export type UseFormReturnType<F> = {
   form: FormHandle<F>;
   validated: () => F;
   validateAll: () => boolean;
-} => {
+};
+
+export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   const internalConfig = convertFormConfig(config);
 
   const [formValue, setFormValue] = useState<FormValue<F>>(() =>
