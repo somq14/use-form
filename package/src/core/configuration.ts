@@ -1,4 +1,5 @@
 import { mapProperties, exhaustiveSwitchCase } from "../utils";
+import { StringType } from "../types/string.type";
 
 import {
   InternalFieldConfig,
@@ -13,9 +14,11 @@ import {
 } from "./external-types";
 
 export const convertOptionalWhenConfig = (
-  when?: string | RegExp | ((value: string) => boolean)
+  when?: boolean | string | RegExp | ((value: string) => boolean)
 ): ((value: string) => boolean) => {
   switch (typeof when) {
+    case "boolean":
+      return when ? (value) => value === "" : () => false;
     case "undefined":
       return () => false;
     case "string":
@@ -24,6 +27,7 @@ export const convertOptionalWhenConfig = (
       return (value: string) => when.test(value);
     case "function":
       return when;
+    /* istanbul ignore next */
     default:
       throw exhaustiveSwitchCase(when);
   }
@@ -35,32 +39,21 @@ export const convertOptionalConfig = <T>(
   // FIXME: dangerous
   const defaultOptionalValue = undefined as unknown as T;
 
-  if (config === undefined || config === false) {
-    return {
-      when: () => false,
-      then: defaultOptionalValue,
-    };
-  }
-
-  if (config === true) {
-    return {
-      when: (value) => value.trim() === "",
-      then: defaultOptionalValue,
-    };
-  }
-
   return {
-    when: convertOptionalWhenConfig(config.when),
-    then: config.then ?? defaultOptionalValue,
+    when: convertOptionalWhenConfig(
+      typeof config === "object" ? config.when : config
+    ),
+    then:
+      typeof config === "object" && config.then !== undefined
+        ? config.then
+        : defaultOptionalValue,
   };
 };
 
-const convertTypeConfig = <T>(type?: FieldType<T>): FieldType<T> => {
-  if (type === undefined) {
-    // FIXME: dangerous
-    return ((value: string) => value) as unknown as FieldType<T>;
-  }
-  return type;
+export const convertTypeConfig = <T>(type?: FieldType<T>): FieldType<T> => {
+  // FIXME: dangerous
+  const defaultType = StringType as unknown as FieldType<T>;
+  return type ?? defaultType;
 };
 
 export const convertFieldConfig = <F, P extends keyof F>(
