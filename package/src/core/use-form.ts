@@ -98,6 +98,7 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
 
   const validateAll = () => {
     const formError = validateForm(formValue, internalConfig);
+    setFormError(formError);
     return Object.values<FieldError[]>(formError).every(
       (errors) => errors.length === 0
     );
