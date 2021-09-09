@@ -22,7 +22,7 @@ export type UseFormReturnType<F> = {
 };
 
 export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
-  const internalConfig = convertFormConfig(config);
+  const formConfig = convertFormConfig(config);
 
   const [formValue, setFormValue] = useState<FormValue<F>>(() =>
     mapProperties(config, (value) => value.initial || "")
@@ -35,7 +35,7 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   }, []);
 
   const [formError, setFormError] = useState<FormError<F>>(() =>
-    mapProperties(internalConfig, () => [])
+    mapProperties(formConfig, () => [])
   );
   const updateFieldError = useCallback((key: keyof F, errors: FieldError[]) => {
     setFormError((oldState) => ({
@@ -47,14 +47,14 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   const formHandle = mapProperties<FormValue<F>, FormHandle<F>>(
     formValue,
     <P extends keyof F>(value: string, key: P): FieldHandle<F[P]> => {
-      const fieldConfig = internalConfig[key];
+      const fieldConfig = formConfig[key];
 
       const onChange: React.ChangeEventHandler<
         HTMLInputElement | HTMLTextAreaElement
       > = (e) => updateFieldValue(key, e.target.value);
 
       const validate = () => {
-        const formattedFormValue = formatForm(formValue, internalConfig);
+        const formattedFormValue = formatForm(formValue, formConfig);
         const errors = validateField(
           formattedFormValue[key],
           key.toString(),
@@ -92,14 +92,14 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   );
 
   const validated = () => {
-    const formattedFormValue = formatForm(formValue, internalConfig);
+    const formattedFormValue = formatForm(formValue, formConfig);
     setFormValue(formattedFormValue);
-    return convertForm(formattedFormValue, internalConfig);
+    return convertForm(formattedFormValue, formConfig);
   };
 
   const validateAll = () => {
-    const formattedFormValue = formatForm(formValue, internalConfig);
-    const formError = validateForm(formattedFormValue, internalConfig);
+    const formattedFormValue = formatForm(formValue, formConfig);
+    const formError = validateForm(formattedFormValue, formConfig);
     setFormValue(formattedFormValue);
     setFormError(formError);
     return Object.values<FieldError[]>(formError).every(
