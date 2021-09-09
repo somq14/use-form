@@ -63,7 +63,8 @@ export const convertFieldConfig = <F, P extends keyof F>(
   const optional = convertOptionalConfig(config.optional);
   const rules = config.rules ?? [];
   const initial = config.initial || "";
-  return { type, optional, rules, initial };
+  const formatters = config.formatters ?? [];
+  return { type, optional, rules, initial, formatters };
 };
 
 export const convertFormConfig = <F>(

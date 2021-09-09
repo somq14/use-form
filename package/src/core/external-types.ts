@@ -46,8 +46,11 @@ export type FieldConfig<F, P extends keyof F> = {
   optional?: boolean | OptionalFieldConfig<F[P]>;
   rules?: FieldRule<F>[];
   initial?: string;
+  formatters?: FieldFormatter[];
 };
 
 export type FormConfig<F> = {
   [P in keyof F]-?: FieldConfig<F, P>;
 };
+
+export type FieldFormatter = (value: string) => string;

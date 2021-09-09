@@ -9,10 +9,11 @@ import {
 import { FieldError } from "../core";
 
 import { validateField, validateForm } from "./validation";
+import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 
 describe("validateField", () => {
   type Form = { field?: string };
-  const config = {
+  const config: InternalFieldConfig<Form, "field"> = {
     initial: "",
     optional: {
       when: (value: string) => value === "",
@@ -20,6 +21,7 @@ describe("validateField", () => {
     },
     rules: [MinLength(4), MaxLength(8), Pattern(/^[a-zA-Z]*$/)],
     type: StringType,
+    formatters: [],
   };
 
   it("no error", () => {
@@ -65,7 +67,7 @@ describe("validateField", () => {
 
 describe("validateForm", () => {
   type Form = { fieldA?: string; fieldB: number };
-  const config = {
+  const config: InternalFormConfig<Form> = {
     fieldA: {
       initial: "",
       optional: {
@@ -74,6 +76,7 @@ describe("validateForm", () => {
       },
       rules: [MinLength(4), MaxLength(8), Pattern(/^[a-zA-Z]*$/)],
       type: StringType,
+      formatters: [],
     },
     fieldB: {
       initial: "",
@@ -83,6 +86,7 @@ describe("validateForm", () => {
       },
       rules: [GreaterOrEqualThan(4), LessOrEqualThan(8)],
       type: NumberType,
+      formatters: [],
     },
   };
 

@@ -90,12 +90,14 @@ describe("convertFieldConfig", () => {
       optional: true,
       rules: [GreaterOrEqualThan(0), LessOrEqualThan(10)],
       type: NumberType,
+      formatters: [(x) => x.trim()],
     });
     expect(config.initial).toEqual("initial");
     expect(config.optional.when).toBeTruthy();
     expect(config.optional.then).toBe(undefined);
     expect(config.rules).toHaveLength(2);
     expect(config.type).toBe(NumberType);
+    expect(config.formatters).toBeTruthy();
   });
 
   it("omit", () => {
@@ -105,6 +107,7 @@ describe("convertFieldConfig", () => {
     expect(config.optional.then).toBe(undefined);
     expect(config.rules).toHaveLength(0);
     expect(config.type).toBe(StringType);
+    expect(config.formatters).toBeTruthy();
   });
 });
 
