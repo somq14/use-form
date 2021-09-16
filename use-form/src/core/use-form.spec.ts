@@ -11,8 +11,6 @@ describe("bindField", () => {
       setValue: () => {},
       errors: [],
       setErrors: () => {},
-      onChange: () => {},
-      onBlur: () => {},
       validate: () => [],
       validated: () => ({ field: "xxx" }),
     });

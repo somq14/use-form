@@ -3,8 +3,6 @@ export type FieldHandle<T> = {
   setValue: (value: string) => void;
   errors: FieldError[];
   setErrors: (errors: FieldError[]) => void;
-  onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   validate: () => FieldError[];
   validated: () => T;
 };
