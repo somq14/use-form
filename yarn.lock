@@ -1781,13 +1781,6 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@somq14/use-form@npm:@somq14/use-form@0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@somq14/use-form/-/use-form-0.0.17.tgz#dc6d7160907f7339707e21383d5ab46bf7f57775"
-  integrity sha512-qyCOjCNm4HfTFvt2b9tkjWOnJNgtzvYkfShawdiDqj62aWvl3KClmHcOs4+oFJRndFVxLuT7PQyq+Cp24ASqtA==
-  dependencies:
-    core-js "3"
-
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"

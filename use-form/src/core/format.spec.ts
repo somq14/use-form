@@ -1,4 +1,4 @@
-import { StringType } from "..";
+import { StringType } from "../types";
 
 import { formatField, formatForm } from "./format";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";

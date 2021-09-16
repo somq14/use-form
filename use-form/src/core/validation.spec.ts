@@ -6,10 +6,10 @@ import {
   LessOrEqualThan,
   GreaterOrEqualThan,
 } from "../rules";
-import { FieldError } from "../core";
 
 import { validateField, validateForm } from "./validation";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
+import { FieldError } from "./external-types";
 
 describe("validateField", () => {
   type Form = { field?: string };

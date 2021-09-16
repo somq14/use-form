@@ -1,5 +1,5 @@
 import { mapProperties, exhaustiveSwitchCase } from "../utils";
-import { StringType } from "../types/string.type";
+import { StringType } from "../types";
 
 import {
   InternalFieldConfig,
