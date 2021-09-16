@@ -1,4 +1,4 @@
-import { FieldError } from "../../dist/types";
+import { FieldError } from "../core";
 
 import { defineRule } from "./rule";
 

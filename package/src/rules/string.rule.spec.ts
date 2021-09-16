@@ -1,8 +1,13 @@
-import { FieldError } from "../../dist/types";
+import { FieldError } from "../core";
 
-import { Length, MaxLength, MinLength, OneOf, Pattern } from "./string.rule";
-
-import { EmailAddress } from ".";
+import {
+  Length,
+  MaxLength,
+  MinLength,
+  OneOf,
+  Pattern,
+  EmailAddress,
+} from "./string.rule";
 
 describe("Length", () => {
   it("validation", () => {
