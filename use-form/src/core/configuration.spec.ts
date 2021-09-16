@@ -1,6 +1,5 @@
 import { GreaterOrEqualThan, LessOrEqualThan } from "../rules";
-import { NumberType } from "../types";
-import { StringType } from "../types/string.type";
+import { NumberType, StringType } from "../types";
 
 import {
   convertFormConfig,

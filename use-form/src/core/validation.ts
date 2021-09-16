@@ -1,7 +1,6 @@
 import { mapProperties } from "../utils";
-import { FormError } from "../core";
 
-import { FieldError, FormValue } from "./external-types";
+import { FieldError, FormValue, FormError } from "./external-types";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 
 export const validateField = <F, P extends keyof F>(
