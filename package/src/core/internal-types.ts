@@ -1,4 +1,4 @@
-import { FieldRule, FieldType } from "./external-types";
+import { FieldRule, FieldType, FieldFormatter } from "./external-types";
 
 export type InternalOptionalFieldConfig<T> = {
   when: (value: string) => boolean;
@@ -10,6 +10,7 @@ export type InternalFieldConfig<F, P extends keyof F> = {
   optional: InternalOptionalFieldConfig<F[P]>;
   rules: FieldRule<F>[];
   initial: string;
+  formatters: FieldFormatter[];
 };
 
 export type InternalFormConfig<F> = {

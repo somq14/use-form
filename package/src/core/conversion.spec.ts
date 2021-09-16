@@ -13,6 +13,7 @@ describe("convertField", () => {
       },
       type: StringType,
       rules: [],
+      formatters: [],
     });
     expect(res).toBe("optional");
   });
@@ -27,6 +28,7 @@ describe("convertField", () => {
       },
       type: StringType,
       rules: [],
+      formatters: [],
     });
     expect(res).toBe("abc");
   });
@@ -41,6 +43,7 @@ describe("convertField", () => {
       },
       type: NumberType,
       rules: [],
+      formatters: [],
     });
     expect(res).toBe(123);
   });
@@ -60,6 +63,7 @@ describe("convertForm", () => {
           },
           type: StringType,
           rules: [],
+          formatters: [],
         },
         fieldB: {
           initial: "",
@@ -69,6 +73,7 @@ describe("convertForm", () => {
           },
           type: NumberType,
           rules: [],
+          formatters: [],
         },
       }
     );

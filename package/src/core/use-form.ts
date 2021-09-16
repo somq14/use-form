@@ -13,6 +13,7 @@ import {
 import { validateField, validateForm } from "./validation";
 import { convertField, convertForm } from "./conversion";
 import { convertFormConfig } from "./configuration";
+import { formatField, formatForm } from "./format";
 
 export type UseFormReturnType<F> = {
   form: FormHandle<F>;
@@ -21,7 +22,7 @@ export type UseFormReturnType<F> = {
 };
 
 export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
-  const internalConfig = convertFormConfig(config);
+  const formConfig = convertFormConfig(config);
 
   const [formValue, setFormValue] = useState<FormValue<F>>(() =>
     mapProperties(config, (value) => value.initial || "")
@@ -34,7 +35,7 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   }, []);
 
   const [formError, setFormError] = useState<FormError<F>>(() =>
-    mapProperties(internalConfig, () => [])
+    mapProperties(formConfig, () => [])
   );
   const updateFieldError = useCallback((key: keyof F, errors: FieldError[]) => {
     setFormError((oldState) => ({
@@ -46,37 +47,35 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   const formHandle = mapProperties<FormValue<F>, FormHandle<F>>(
     formValue,
     <P extends keyof F>(value: string, key: P): FieldHandle<F[P]> => {
-      const fieldConfig = internalConfig[key];
+      const fieldConfig = formConfig[key];
 
       const onChange: React.ChangeEventHandler<
         HTMLInputElement | HTMLTextAreaElement
       > = (e) => updateFieldValue(key, e.target.value);
 
-      const onBlur: React.FocusEventHandler<
-        HTMLInputElement | HTMLTextAreaElement
-      > = () => {
-        const errors = validateField(
-          value,
-          key.toString(),
-          formValue,
-          fieldConfig
-        );
-        updateFieldError(key, errors);
-      };
-
       const validate = () => {
+        const formattedFormValue = formatForm(formValue, formConfig);
         const errors = validateField(
-          value,
+          formattedFormValue[key],
           key.toString(),
-          formValue,
+          formattedFormValue,
           fieldConfig
         );
+        updateFieldValue(key, formattedFormValue[key]);
         updateFieldError(key, errors);
         return errors;
       };
 
+      const onBlur: React.FocusEventHandler<
+        HTMLInputElement | HTMLTextAreaElement
+      > = () => {
+        validate();
+      };
+
       const validated = () => {
-        return convertField(value, fieldConfig);
+        const formattedFiledValue = formatField(value, fieldConfig);
+        updateFieldValue(key, formattedFiledValue);
+        return convertField(formattedFiledValue, fieldConfig);
       };
 
       return {
@@ -93,11 +92,15 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   );
 
   const validated = () => {
-    return convertForm(formValue, internalConfig);
+    const formattedFormValue = formatForm(formValue, formConfig);
+    setFormValue(formattedFormValue);
+    return convertForm(formattedFormValue, formConfig);
   };
 
   const validateAll = () => {
-    const formError = validateForm(formValue, internalConfig);
+    const formattedFormValue = formatForm(formValue, formConfig);
+    const formError = validateForm(formattedFormValue, formConfig);
+    setFormValue(formattedFormValue);
     setFormError(formError);
     return Object.values<FieldError[]>(formError).every(
       (errors) => errors.length === 0
