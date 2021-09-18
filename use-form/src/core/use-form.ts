@@ -49,10 +49,6 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
     <P extends keyof F>(value: string, key: P): FieldHandle<F[P]> => {
       const fieldConfig = formConfig[key];
 
-      const onChange: React.ChangeEventHandler<
-        HTMLInputElement | HTMLTextAreaElement
-      > = (e) => updateFieldValue(key, e.target.value);
-
       const validate = () => {
         const formattedFormValue = formatForm(formValue, formConfig);
         const errors = validateField(
@@ -66,12 +62,6 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
         return errors;
       };
 
-      const onBlur: React.FocusEventHandler<
-        HTMLInputElement | HTMLTextAreaElement
-      > = () => {
-        validate();
-      };
-
       const validated = () => {
         const formattedFiledValue = formatField(value, fieldConfig);
         updateFieldValue(key, formattedFiledValue);
@@ -83,8 +73,6 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
         errors: formError[key],
         setValue: (value: string) => updateFieldValue(key, value),
         setErrors: (errors: FieldError[]) => updateFieldError(key, errors),
-        onChange,
-        onBlur,
         validate,
         validated,
       };
@@ -108,15 +96,4 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   };
 
   return { form: formHandle, validated, validateAll };
-};
-
-export const bindField = <T>(
-  fieldHandle: FieldHandle<T>
-): Pick<FieldHandle<T>, "value" | "onChange" | "onBlur"> => {
-  const { value, onChange, onBlur } = fieldHandle;
-  return {
-    value,
-    onChange,
-    onBlur,
-  };
 };

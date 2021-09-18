@@ -1,6 +1,6 @@
 import {
   useForm,
-  bindField,
+  bindTextField,
   MinLength,
   MaxLength,
   Pattern,
@@ -42,7 +42,7 @@ export const ValidatedForm: React.FC = () => {
           id="password"
           type="text"
           maxLength={32}
-          {...bindField(form.password)}
+          {...bindTextField(form.password)}
         />
 
         {form.password.errors.length > 0 && (

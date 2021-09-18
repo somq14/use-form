@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { BasicForm } from "./pages/BasicForm";
 import { TopPage } from "./pages/TopPage";
 import { ValidatedForm } from "./pages/ValidatedForm";
+import { VariousField } from "./pages/VariousField";
 
 export const App: React.FC = () => {
   return (
@@ -17,6 +18,9 @@ export const App: React.FC = () => {
           </Route>
           <Route exact path="/validation">
             <ValidatedForm></ValidatedForm>
+          </Route>
+          <Route exact path="/various-field">
+            <VariousField></VariousField>
           </Route>
           <Route path="*">
             <Redirect to="/"></Redirect>

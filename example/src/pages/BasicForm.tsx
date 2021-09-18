@@ -1,4 +1,4 @@
-import { useForm, bindField } from "@somq14/use-form";
+import { useForm, bindTextField } from "@somq14/use-form";
 import React from "react";
 
 type LoginForm = {
@@ -23,10 +23,14 @@ export const BasicForm: React.FC = () => {
       <h1>basic form</h1>
       <form className="card" onSubmit={onSubmit}>
         <label htmlFor="user-id">USER ID</label>
-        <input id="user-id" type="text" {...bindField(form.userId)} />
+        <input id="user-id" type="text" {...bindTextField(form.userId)} />
 
         <label htmlFor="password">PASSWORD</label>
-        <input id="password" type="password" {...bindField(form.password)} />
+        <input
+          id="password"
+          type="password"
+          {...bindTextField(form.password)}
+        />
 
         <input type="submit" value="submit" />
       </form>
