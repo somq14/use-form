@@ -12,6 +12,9 @@ export const TopPage: React.FC = (props) => {
         <li>
           <Link to="/validation">Validated Form</Link>
         </li>
+        <li>
+          <Link to="/various-field">Various Field</Link>
+        </li>
       </ul>
     </div>
   );
