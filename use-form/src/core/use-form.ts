@@ -97,17 +97,3 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
 
   return { form: formHandle, validated, validateAll };
 };
-
-export const bindField = <T>(
-  fieldHandle: FieldHandle<T>
-): {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-} => {
-  return {
-    value: fieldHandle.value,
-    onChange: (e) => fieldHandle.setValue(e.target.value),
-    onBlur: () => fieldHandle.validate(),
-  };
-};
