@@ -7,13 +7,14 @@ import {
   MinLength,
   OneOf,
   useForm,
+  BooleanType,
 } from "@somq14/use-form";
 import React from "react";
 
 type Form = {
   textField: string;
   textArea: string;
-  checkbox: string;
+  checkbox: boolean;
   select: string;
   radio: string;
 };
@@ -27,6 +28,7 @@ export const VariousField: React.FC = () => {
       rules: [MinLength(1)],
     },
     checkbox: {
+      type: BooleanType,
       rules: [OneOf(["true"])],
     },
     radio: {
