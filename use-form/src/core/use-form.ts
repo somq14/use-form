@@ -1,7 +1,9 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
-import { mapProperties } from "../utils";
+import { mapProperties, useSetStateAsync } from "../utils";
 
+import { convertFormConfig } from "./configuration";
+import { convertField, convertForm } from "./conversion";
 import {
   FieldError,
   FieldHandle,
@@ -10,90 +12,114 @@ import {
   FormHandle,
   FormValue,
 } from "./external-types";
+import { formatForm } from "./format";
+import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 import { validateField, validateForm } from "./validation";
-import { convertField, convertForm } from "./conversion";
-import { convertFormConfig } from "./configuration";
-import { formatField, formatForm } from "./format";
 
 export type UseFormReturnType<F> = {
   form: FormHandle<F>;
-  validated: () => F;
-  validateAll: () => boolean;
+  validated: () => Promise<F>;
+  validateAll: () => Promise<boolean>;
+};
+
+export type UseFormState<F> = {
+  value: FormValue<F>;
+  error: FormError<F>;
 };
 
 export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
   const formConfig = convertFormConfig(config);
 
-  const [formValue, setFormValue] = useState<FormValue<F>>(() =>
-    mapProperties(config, (value) => value.initial || "")
-  );
-  const updateFieldValue = useCallback((key: keyof F, value: string): void => {
-    setFormValue((oldState) => ({
-      ...oldState,
-      [key]: value,
-    }));
-  }, []);
+  const [currentState, setState] = useState<UseFormState<F>>(() => ({
+    error: mapProperties(formConfig, () => []),
+    value: mapProperties(formConfig, (value) => value.initial || ""),
+  }));
+  const setStateAsync = useSetStateAsync(setState);
 
-  const [formError, setFormError] = useState<FormError<F>>(() =>
-    mapProperties(formConfig, () => [])
-  );
-  const updateFieldError = useCallback((key: keyof F, errors: FieldError[]) => {
-    setFormError((oldState) => ({
-      ...oldState,
-      [key]: errors,
-    }));
-  }, []);
-
-  const formHandle = mapProperties<FormValue<F>, FormHandle<F>>(
-    formValue,
-    <P extends keyof F>(value: string, key: P): FieldHandle<F[P]> => {
-      const fieldConfig = formConfig[key];
-
-      const validate = () => {
-        const formattedFormValue = formatForm(formValue, formConfig);
-        const errors = validateField(
-          formattedFormValue[key],
-          key.toString(),
-          formattedFormValue,
-          fieldConfig
-        );
-        updateFieldValue(key, formattedFormValue[key]);
-        updateFieldError(key, errors);
-        return errors;
-      };
-
-      const validated = () => {
-        const formattedFiledValue = formatField(value, fieldConfig);
-        updateFieldValue(key, formattedFiledValue);
-        return convertField(formattedFiledValue, fieldConfig);
-      };
-
+  const formHandle = mapProperties<InternalFormConfig<F>, FormHandle<F>>(
+    formConfig,
+    <P extends keyof F>(
+      fieldConfig: InternalFieldConfig<F, P>,
+      key: P
+    ): FieldHandle<F[P]> => {
       return {
-        value,
-        errors: formError[key],
-        setValue: (value: string) => updateFieldValue(key, value),
-        setErrors: (errors: FieldError[]) => updateFieldError(key, errors),
-        validate,
-        validated,
+        value: currentState.value[key],
+        errors: currentState.error[key],
+        setValue: (value: string) => {
+          setState((state) => {
+            return {
+              value: { ...state.value, [key]: value },
+              error: state.error,
+            };
+          });
+        },
+        setErrors: (errors: FieldError[]) => {
+          setState((state) => {
+            return {
+              value: state.value,
+              error: { ...state.error, [key]: errors },
+            };
+          });
+        },
+        validate: () =>
+          setStateAsync((state) => {
+            const formatted = formatForm(state.value, formConfig);
+            const errors = validateField(
+              formatted[key],
+              key.toString(),
+              formatted,
+              fieldConfig
+            );
+            return [
+              {
+                value: { ...state.value, [key]: formatted[key] },
+                error: { ...state.error, [key]: errors },
+              },
+              errors,
+            ];
+          }),
+        validated: () =>
+          setStateAsync((state) => {
+            const formatted = formatForm(state.value, formConfig);
+            return [
+              {
+                value: { ...state.value, [key]: formatted[key] },
+                error: state.error,
+              },
+              convertField(formatted[key], fieldConfig),
+            ];
+          }),
       };
     }
   );
 
-  const validated = () => {
-    const formattedFormValue = formatForm(formValue, formConfig);
-    setFormValue(formattedFormValue);
-    return convertForm(formattedFormValue, formConfig);
+  return {
+    form: formHandle,
+    validateAll: () =>
+      setStateAsync((state) => {
+        const formatted = formatForm(state.value, formConfig);
+        const error = validateForm(formatted, formConfig);
+        return [
+          {
+            value: formatted,
+            error: error,
+          },
+          Object.values<FieldError[]>(error).every(
+            (errors) => errors.length === 0
+          ),
+        ];
+      }),
+    validated: () =>
+      setStateAsync((state) => {
+        const formatted = formatForm(state.value, formConfig);
+        const convertedForm = convertForm(formatted, formConfig);
+        return [
+          {
+            value: formatted,
+            error: state.error,
+          },
+          convertedForm,
+        ];
+      }),
   };
-
-  const validateAll = () => {
-    const formattedFormValue = formatForm(formValue, formConfig);
-    const formError = validateForm(formattedFormValue, formConfig);
-    setFormValue(formattedFormValue);
-    setFormError(formError);
-    return Object.values<FieldError[]>(formError).every(
-      (errors) => errors.length === 0
-    );
-  };
-
-  return { form: formHandle, validated, validateAll };
 };
