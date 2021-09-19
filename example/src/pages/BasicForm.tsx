@@ -12,9 +12,9 @@ export const BasicForm: React.FC = () => {
     password: {},
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formValue = validated();
+    const formValue = await validated();
     alert(`userId: ${formValue.userId}\npassword: ${formValue.password}`);
   };
 

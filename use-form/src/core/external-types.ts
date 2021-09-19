@@ -3,8 +3,8 @@ export type FieldHandle<T> = {
   setValue: (value: string) => void;
   errors: FieldError[];
   setErrors: (errors: FieldError[]) => void;
-  validate: () => FieldError[];
-  validated: () => T;
+  validate: () => Promise<FieldError[]>;
+  validated: () => Promise<T>;
 };
 
 export type FormHandle<F> = {

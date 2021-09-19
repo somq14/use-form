@@ -22,14 +22,14 @@ export const ValidatedForm: React.FC = () => {
     },
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validateAll()) {
+    if (!(await validateAll())) {
       return;
     }
 
-    const formValue = validated();
+    const formValue = await validated();
     alert(`password: ${formValue.password}`);
   };
 
