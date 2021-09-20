@@ -100,7 +100,9 @@ describe("convertFieldConfig", () => {
   });
 
   it("omit", () => {
-    const config = convertFieldConfig<{ field: string }, "field">({});
+    const config = convertFieldConfig<{ field: string }, "field">({
+      type: StringType,
+    });
     expect(config.initial).toEqual("");
     expect(config.optional.when).toBeTruthy();
     expect(config.optional.then).toBe(undefined);
@@ -114,7 +116,9 @@ describe("convertFormConfig", () => {
   it("test", () => {
     type Form = { fieldA: string; fieldB?: number };
     const config = convertFormConfig<Form>({
-      fieldA: {},
+      fieldA: {
+        type: StringType,
+      },
       fieldB: {
         type: NumberType,
         optional: true,

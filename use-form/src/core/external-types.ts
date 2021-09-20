@@ -65,7 +65,7 @@ export type OptionalFieldConfig<T> = {
 };
 
 export type FieldConfig<F, P extends keyof F> = {
-  type?: FieldType<F[P]>;
+  type: FieldType<F[P]>;
   optional?: boolean | OptionalFieldConfig<F[P]>;
   rules?: FieldRule<F>[];
   initial?: string;
