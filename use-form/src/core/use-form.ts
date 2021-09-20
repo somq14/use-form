@@ -82,7 +82,11 @@ export const useForm = <F>(config: FormConfig<F>): Form<F> => {
   );
   const dispatch = useAsyncReducer(setState);
 
-  const methods = useMemo(() => buildMethods(config, dispatch), []);
+  const methods = useMemo(
+    () => buildMethods(config, dispatch),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   return useMemo(() => {
     return {
