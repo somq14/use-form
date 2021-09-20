@@ -4,6 +4,7 @@ import {
   MinLength,
   MaxLength,
   Pattern,
+  StringType,
 } from "@somq14/use-form";
 import React from "react";
 
@@ -12,8 +13,9 @@ type PasswordForm = {
 };
 
 export const ValidatedForm: React.FC = () => {
-  const { form, validateAll, validated } = useForm<PasswordForm>({
+  const form = useForm<PasswordForm>({
     password: {
+      type: StringType,
       rules: [
         MinLength(8, "at least 8 characters"),
         MaxLength(32, "at most 32 characters"),
@@ -25,11 +27,11 @@ export const ValidatedForm: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!(await validateAll())) {
+    if (!(await form.validate())) {
       return;
     }
 
-    const formValue = await validated();
+    const formValue = await form.convert();
     alert(`password: ${formValue.password}`);
   };
 
@@ -42,14 +44,14 @@ export const ValidatedForm: React.FC = () => {
           id="password"
           type="text"
           maxLength={32}
-          {...bindTextField(form.password)}
+          {...bindTextField(form.fields.password)}
         />
 
-        {form.password.errors.length > 0 && (
+        {form.fields.password.errors.length > 0 && (
           <div className="error">
             <p>field has errors</p>
             <ul>
-              {form.password.errors.map((error) => (
+              {form.fields.password.errors.map((error) => (
                 <li key={error.ruleName}>{error.message}</li>
               ))}
             </ul>
