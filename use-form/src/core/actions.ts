@@ -15,7 +15,7 @@ export const initFormState = <F>(
   formConfig: InternalFormConfig<F>
 ): FormState<F> => {
   return {
-    value: mapProperties(formConfig, (value) => value.initial || ""),
+    value: mapProperties(formConfig, (value) => value.initial),
     error: mapProperties(formConfig, () => []),
   };
 };
