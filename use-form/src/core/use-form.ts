@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-import { mapProperties, useAsyncReducer } from "../utils";
+import { Dispatch, mapProperties, useAsyncReducer } from "../utils";
 
 import {
   convertFieldAction,
@@ -23,31 +23,34 @@ import {
   validateFormAction,
 } from "./actions";
 import { convertFormConfig } from "./configuration";
-import { FieldHandle, Form, FormConfig, FormHandle } from "./external-types";
+import { FieldError, FieldHandle, Form, FormConfig } from "./external-types";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
 
-export const useForm = <F>(config: FormConfig<F>): Form<F> => {
+type FieldMethods<F> = {
+  [P in keyof F]-?: Omit<FieldHandle<F[P]>, "value" | "errors">;
+};
+type FormMethods<F> = Omit<Form<F>, "value" | "error" | "fields">;
+
+export const buildMethods = <F>(
+  config: FormConfig<F>,
+  dispatch: Dispatch<FormState<F>>
+): { fieldMethods: FieldMethods<F>; formMethods: FormMethods<F> } => {
   const formConfig = convertFormConfig(config);
 
-  const [currentState, setState] = useState<FormState<F>>(() =>
-    initFormState(formConfig)
-  );
-  const dispatch = useAsyncReducer(setState);
-
-  const formHandle = mapProperties<InternalFormConfig<F>, FormHandle<F>>(
+  const fieldMethods: FieldMethods<F> = mapProperties<
+    InternalFormConfig<F>,
+    FieldMethods<F>
+  >(
     formConfig,
-    <P extends keyof F>(
-      fieldConfig: InternalFieldConfig<F, P>,
-      key: P
-    ): FieldHandle<F[P]> => {
+    <P extends keyof F>(fieldConfig: InternalFieldConfig<F, P>, key: P) => {
       return {
-        value: currentState.value[key],
         getValue: () => dispatch(getFieldValueAction, { key }),
-        setValue: (value) => dispatch(setFieldValueAction, { key, value }),
+        setValue: (value: string) =>
+          dispatch(setFieldValueAction, { key, value }),
 
-        errors: currentState.error[key],
         getErrors: () => dispatch(getFieldErrorsAction, { key }),
-        setErrors: (errors) => dispatch(setFieldErrorsAction, { key, errors }),
+        setErrors: (errors: FieldError[]) =>
+          dispatch(setFieldErrorsAction, { key, errors }),
 
         format: () => dispatch(formatFieldAction, { key, formConfig }),
         validate: () => dispatch(validateFieldAction, { key, formConfig }),
@@ -57,14 +60,10 @@ export const useForm = <F>(config: FormConfig<F>): Form<F> => {
     }
   );
 
-  return {
-    fields: formHandle,
-
-    value: currentState.value,
+  const formMethods: FormMethods<F> = {
     getValue: () => dispatch(getFormValueAction, {}),
     setValue: (value) => dispatch(setFormValueAction, { value }),
 
-    error: currentState.error,
     getError: () => dispatch(getFormErrorAction, {}),
     setError: (error) => dispatch(setFormErrorAction, { error }),
 
@@ -73,4 +72,30 @@ export const useForm = <F>(config: FormConfig<F>): Form<F> => {
     convert: () => dispatch(convertFormAction, { formConfig }),
     reset: () => dispatch(resetFormAction, { formConfig }),
   };
+
+  return { formMethods, fieldMethods };
+};
+
+export const useForm = <F>(config: FormConfig<F>): Form<F> => {
+  const [state, setState] = useState<FormState<F>>(() =>
+    initFormState(convertFormConfig(config))
+  );
+  const dispatch = useAsyncReducer(setState);
+
+  const methods = useMemo(() => buildMethods(config, dispatch), []);
+
+  return useMemo(() => {
+    return {
+      fields: mapProperties(methods.fieldMethods, (methods, key) => {
+        return {
+          ...methods,
+          value: state.value[key],
+          errors: state.error[key],
+        };
+      }),
+      ...methods.formMethods,
+      value: state.value,
+      error: state.error,
+    };
+  }, [methods, state]);
 };
