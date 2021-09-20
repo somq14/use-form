@@ -1,4 +1,4 @@
-import { bindTextField, useForm } from "@somq14/use-form";
+import { bindTextField, StringType, useForm } from "@somq14/use-form";
 import React from "react";
 
 type LoginForm = {
@@ -8,8 +8,12 @@ type LoginForm = {
 
 export const BasicForm: React.FC = () => {
   const form = useForm<LoginForm>({
-    userId: {},
-    password: {},
+    userId: {
+      type: StringType,
+    },
+    password: {
+      type: StringType,
+    },
   });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

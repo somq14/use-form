@@ -7,6 +7,7 @@ import {
   BooleanType,
   MinLength,
   OneOf,
+  StringType,
   useForm,
 } from "@somq14/use-form";
 import React from "react";
@@ -22,9 +23,11 @@ type Form = {
 export const VariousField: React.FC = () => {
   const form = useForm<Form>({
     textField: {
+      type: StringType,
       rules: [MinLength(1)],
     },
     textArea: {
+      type: StringType,
       rules: [MinLength(1)],
     },
     checkbox: {
@@ -32,9 +35,11 @@ export const VariousField: React.FC = () => {
       rules: [OneOf(["true"])],
     },
     radio: {
+      type: StringType,
       rules: [OneOf(["x", "y"])],
     },
     select: {
+      type: StringType,
       rules: [OneOf(["a", "b", "c"])],
     },
   });

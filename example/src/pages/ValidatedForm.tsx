@@ -4,6 +4,7 @@ import {
   MinLength,
   MaxLength,
   Pattern,
+  StringType,
 } from "@somq14/use-form";
 import React from "react";
 
@@ -14,6 +15,7 @@ type PasswordForm = {
 export const ValidatedForm: React.FC = () => {
   const form = useForm<PasswordForm>({
     password: {
+      type: StringType,
       rules: [
         MinLength(8, "at least 8 characters"),
         MaxLength(32, "at most 32 characters"),
