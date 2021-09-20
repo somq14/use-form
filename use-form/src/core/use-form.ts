@@ -1,40 +1,38 @@
 import { useState } from "react";
 
-import { mapProperties, useSetStateAsync } from "../utils";
+import { mapProperties, useAsyncReducer } from "../utils";
 
-import { convertFormConfig } from "./configuration";
-import { convertField, convertForm } from "./conversion";
 import {
-  FieldError,
-  FieldHandle,
-  FormConfig,
-  FormError,
-  FormHandle,
-  FormValue,
-} from "./external-types";
-import { formatForm } from "./format";
+  convertFieldAction,
+  convertFormAction,
+  formatFieldAction,
+  formatFormAction,
+  FormState,
+  getFieldErrorsAction,
+  getFieldValueAction,
+  getFormErrorAction,
+  getFormValueAction,
+  initFormState,
+  resetFieldAction,
+  resetFormAction,
+  setFieldErrorsAction,
+  setFieldValueAction,
+  setFormErrorAction,
+  setFormValueAction,
+  validateFieldAction,
+  validateFormAction,
+} from "./actions";
+import { convertFormConfig } from "./configuration";
+import { FieldHandle, Form, FormConfig, FormHandle } from "./external-types";
 import { InternalFieldConfig, InternalFormConfig } from "./internal-types";
-import { validateField, validateForm } from "./validation";
 
-export type UseFormReturnType<F> = {
-  form: FormHandle<F>;
-  validated: () => Promise<F>;
-  validateAll: () => Promise<boolean>;
-};
-
-export type UseFormState<F> = {
-  value: FormValue<F>;
-  error: FormError<F>;
-};
-
-export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
+export const useForm = <F>(config: FormConfig<F>): Form<F> => {
   const formConfig = convertFormConfig(config);
 
-  const [currentState, setState] = useState<UseFormState<F>>(() => ({
-    error: mapProperties(formConfig, () => []),
-    value: mapProperties(formConfig, (value) => value.initial || ""),
-  }));
-  const setStateAsync = useSetStateAsync(setState);
+  const [currentState, setState] = useState<FormState<F>>(() =>
+    initFormState(formConfig)
+  );
+  const dispatch = useAsyncReducer(setState);
 
   const formHandle = mapProperties<InternalFormConfig<F>, FormHandle<F>>(
     formConfig,
@@ -44,82 +42,35 @@ export const useForm = <F>(config: FormConfig<F>): UseFormReturnType<F> => {
     ): FieldHandle<F[P]> => {
       return {
         value: currentState.value[key],
+        getValue: () => dispatch(getFieldValueAction, { key }),
+        setValue: (value) => dispatch(setFieldValueAction, { key, value }),
+
         errors: currentState.error[key],
-        setValue: (value: string) => {
-          setState((state) => {
-            return {
-              value: { ...state.value, [key]: value },
-              error: state.error,
-            };
-          });
-        },
-        setErrors: (errors: FieldError[]) => {
-          setState((state) => {
-            return {
-              value: state.value,
-              error: { ...state.error, [key]: errors },
-            };
-          });
-        },
-        validate: () =>
-          setStateAsync((state) => {
-            const formatted = formatForm(state.value, formConfig);
-            const errors = validateField(
-              formatted[key],
-              key.toString(),
-              formatted,
-              fieldConfig
-            );
-            return [
-              {
-                value: { ...state.value, [key]: formatted[key] },
-                error: { ...state.error, [key]: errors },
-              },
-              errors,
-            ];
-          }),
-        validated: () =>
-          setStateAsync((state) => {
-            const formatted = formatForm(state.value, formConfig);
-            return [
-              {
-                value: { ...state.value, [key]: formatted[key] },
-                error: state.error,
-              },
-              convertField(formatted[key], fieldConfig),
-            ];
-          }),
+        getErrors: () => dispatch(getFieldErrorsAction, { key }),
+        setErrors: (errors) => dispatch(setFieldErrorsAction, { key, errors }),
+
+        format: () => dispatch(formatFieldAction, { key, formConfig }),
+        validate: () => dispatch(validateFieldAction, { key, formConfig }),
+        convert: () => dispatch(convertFieldAction, { key, formConfig }),
+        reset: () => dispatch(resetFieldAction, { key, formConfig }),
       };
     }
   );
 
   return {
-    form: formHandle,
-    validateAll: () =>
-      setStateAsync((state) => {
-        const formatted = formatForm(state.value, formConfig);
-        const error = validateForm(formatted, formConfig);
-        return [
-          {
-            value: formatted,
-            error: error,
-          },
-          Object.values<FieldError[]>(error).every(
-            (errors) => errors.length === 0
-          ),
-        ];
-      }),
-    validated: () =>
-      setStateAsync((state) => {
-        const formatted = formatForm(state.value, formConfig);
-        const convertedForm = convertForm(formatted, formConfig);
-        return [
-          {
-            value: formatted,
-            error: state.error,
-          },
-          convertedForm,
-        ];
-      }),
+    fields: formHandle,
+
+    value: currentState.value,
+    getValue: () => dispatch(getFormValueAction, {}),
+    setValue: (value) => dispatch(setFormValueAction, { value }),
+
+    error: currentState.error,
+    getError: () => dispatch(getFormErrorAction, {}),
+    setError: (error) => dispatch(setFormErrorAction, { error }),
+
+    format: () => dispatch(formatFormAction, { formConfig }),
+    validate: () => dispatch(validateFormAction, { formConfig }),
+    convert: () => dispatch(convertFormAction, { formConfig }),
+    reset: () => dispatch(resetFormAction, { formConfig }),
   };
 };

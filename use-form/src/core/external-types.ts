@@ -1,10 +1,35 @@
+export type SetAction<T> = T | ((prev: T) => T);
+
+export type Form<F> = {
+  fields: FormHandle<F>;
+
+  value: FormValue<F>;
+  getValue: () => Promise<FormValue<F>>;
+  setValue: (value: SetAction<FormValue<F>>) => void;
+
+  error: FormError<F>;
+  getError: () => Promise<FormError<F>>;
+  setError: (errors: SetAction<FormError<F>>) => void;
+
+  format: () => void;
+  validate: () => Promise<boolean>;
+  convert: () => Promise<F>;
+  reset: () => void;
+};
+
 export type FieldHandle<T> = {
   value: string;
+  getValue: () => Promise<string>;
   setValue: (value: string) => void;
+
   errors: FieldError[];
+  getErrors: () => Promise<FieldError[]>;
   setErrors: (errors: FieldError[]) => void;
+
+  format: () => void;
   validate: () => Promise<FieldError[]>;
-  validated: () => Promise<T>;
+  convert: () => Promise<T>;
+  reset: () => void;
 };
 
 export type FormHandle<F> = {
