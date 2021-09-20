@@ -4,10 +4,10 @@ import {
   bindSelect,
   bindTextArea,
   bindTextField,
+  BooleanType,
   MinLength,
   OneOf,
   useForm,
-  BooleanType,
 } from "@somq14/use-form";
 import React from "react";
 
@@ -20,7 +20,7 @@ type Form = {
 };
 
 export const VariousField: React.FC = () => {
-  const { form, validateAll, validated } = useForm<Form>({
+  const form = useForm<Form>({
     textField: {
       rules: [MinLength(1)],
     },
@@ -39,13 +39,13 @@ export const VariousField: React.FC = () => {
     },
   });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validateAll()) {
+    if (!(await form.validate())) {
       return;
     }
-    const formValue = validated();
+    const formValue = await form.convert();
     alert(JSON.stringify(formValue, undefined, 2));
   };
 
@@ -58,15 +58,18 @@ export const VariousField: React.FC = () => {
           id="text-field"
           type="text"
           maxLength={32}
-          {...bindTextField(form.textField)}
+          {...bindTextField(form.fields.textField)}
         />
-        {form.textField.errors.length > 0 && (
+        {form.fields.textField.errors.length > 0 && (
           <div className="error">required</div>
         )}
 
         <label htmlFor="text-area">Text Area</label>
-        <textarea id="text-area" {...bindTextArea(form.textArea)}></textarea>
-        {form.textArea.errors.length > 0 && (
+        <textarea
+          id="text-area"
+          {...bindTextArea(form.fields.textArea)}
+        ></textarea>
+        {form.fields.textArea.errors.length > 0 && (
           <div className="error">required</div>
         )}
 
@@ -75,11 +78,11 @@ export const VariousField: React.FC = () => {
           <input
             id="checkbox"
             type="checkbox"
-            {...bindCheckbox(form.checkbox)}
+            {...bindCheckbox(form.fields.checkbox)}
           ></input>
           <label htmlFor="checkbox">enable</label>
         </div>
-        {form.checkbox.errors.length > 0 && (
+        {form.fields.checkbox.errors.length > 0 && (
           <div className="error">required</div>
         )}
 
@@ -89,7 +92,7 @@ export const VariousField: React.FC = () => {
             id="radio-x"
             name="radio-group"
             type="radio"
-            {...bindRadio(form.radio, "x")}
+            {...bindRadio(form.fields.radio, "x")}
           ></input>
           <label htmlFor="radio-x">X</label>
         </div>
@@ -98,20 +101,24 @@ export const VariousField: React.FC = () => {
             id="radio-y"
             name="radio-group"
             type="radio"
-            {...bindRadio(form.radio, "y")}
+            {...bindRadio(form.fields.radio, "y")}
           ></input>
           <label htmlFor="radio-y">Y</label>
         </div>
-        {form.radio.errors.length > 0 && <div className="error">required</div>}
+        {form.fields.radio.errors.length > 0 && (
+          <div className="error">required</div>
+        )}
 
         <label htmlFor="select">Select</label>
-        <select id="select" {...bindSelect(form.select)}>
+        <select id="select" {...bindSelect(form.fields.select)}>
           <option value="">not selected</option>
           <option value="a">option A</option>
           <option value="b">option B</option>
           <option value="c">option C</option>
         </select>
-        {form.select.errors.length > 0 && <div className="error">required</div>}
+        {form.fields.select.errors.length > 0 && (
+          <div className="error">required</div>
+        )}
 
         <input type="submit" value="submit" />
       </form>
